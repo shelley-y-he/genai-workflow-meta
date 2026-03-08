@@ -34,5 +34,5 @@ Each entry covers one meaningful decision stage (not every conversation turn).
 **AI output summary**: Proposed a Markdown-based log format with structured fields (stage, input type, prompt summary, AI output, agency, deviation reason, outcome, notes). Recommended a user-level CLAUDE.md rule + `/log` skill for immediate reusability, with an MCP plugin as the long-term path for team sharing.
 **Agency**: Accepted
 **Reason for deviation**: N/A
-**Outcome**: Format adopted. `WORKFLOW_LOG.md` created in `meta/` folder under Colab Notebooks. User-level `CLAUDE.md` rule and `/log` skill created. To be tracked on GitHub.
+**Outcome**: Format adopted. `WORKFLOW_LOG.md` created in `genai-workflow-meta/` folder under Colab Notebooks. User-level `CLAUDE.md` rule and `/log` skill created. To be tracked on GitHub as a private repo (`genai-workflow-meta`).
 **Notes**: Format is provisional — may evolve as we gain experience. Plan to revisit and stabilize before packaging as a plugin. Log is cross-project; project-specific logs may be added later if needed.
