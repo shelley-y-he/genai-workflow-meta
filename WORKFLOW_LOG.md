@@ -17,6 +17,7 @@ Each entry covers one meaningful decision stage (not every conversation turn).
 | **Initiator** | User / Assistant / Joint |
 | **User Engagement** | High / Medium / Low |
 | **User Action Type** | Problem framing / Constraint setting / Scope rejection / Target definition / Evaluation criteria / Planning & sequencing / Structuring / Approval only / Meta-analysis |
+| **Input Modality** | File attachment / URL / Named reference / Search instruction / In-conversation text / In-conversation artifact |
 | **Prompt summary** | 1–2 sentences describing what was asked or decided |
 | **AI output summary** | What Claude produced or suggested |
 | **Decision Dependency** | User-critical / User-influenced / Assistant-driven |
@@ -59,3 +60,17 @@ Each entry covers one meaningful decision stage (not every conversation turn).
 **Reason for deviation**: Quality — prior format lacked the analytical precision needed for attribution analysis.
 **Outcome**: Format updated to v2. All dependencies (WORKFLOW_LOG.md, CLAUDE.md) updated consistently.
 **Notes**: The User Action Type and Decision Dependency fields are the most analytically valuable additions for future meta-analysis.
+
+### S03 — Add Input Modality Field — 2026-03-08
+
+**Phase**: Review
+**Initiator**: User
+**User Engagement**: High
+**User Action Type**: Evaluation criteria, Structuring
+**Input Modality**: In-conversation text
+**Prompt summary**: User noted that the existing fields don't distinguish how inputs are delivered (e.g., file attachment vs. URL vs. delegated search instruction). Requested a dedicated field to capture this dimension.
+**AI output summary**: Proposed a new Input Modality field with six controlled values: File attachment / URL / Named reference / Search instruction / In-conversation text / In-conversation artifact. Added to format table and CLAUDE.md taxonomy.
+**Decision Dependency**: User-critical
+**Reason for deviation**: N/A
+**Outcome**: Input Modality field added to log format (v3) and CLAUDE.md. All prior entries backfilled where modality was clear.
+**Notes**: This field is orthogonal to User Action Type — together they capture both the purpose and the channel of each input. Enables future analysis of whether input form affects output quality or iteration count.
