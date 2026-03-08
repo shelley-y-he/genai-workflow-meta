@@ -14,13 +14,21 @@ Each entry covers one meaningful decision stage (not every conversation turn).
 | **Stage name** | Short descriptive label |
 | **Date** | YYYY-MM-DD |
 | **Phase** | Planning / Implementation / Debugging / Review / Other |
-| **Input type** | User requirement / Artifact provided / Search request / Question / Feedback |
-| **Prompt summary** | 1–2 sentences describing what was asked |
+| **Initiator** | User / Assistant / Joint |
+| **User Engagement** | High / Medium / Low |
+| **User Action Type** | Problem framing / Constraint setting / Scope rejection / Target definition / Evaluation criteria / Planning & sequencing / Structuring / Approval only / Meta-analysis |
+| **Prompt summary** | 1–2 sentences describing what was asked or decided |
 | **AI output summary** | What Claude produced or suggested |
-| **Agency** | Accepted / Lightly edited / Substantially revised / Rejected / Iterated (N rounds) |
-| **Reason for deviation** | *(if not Accepted)* Disagreement / Missing context / Ambiguity / Quality / Other |
+| **Decision Dependency** | User-critical / User-influenced / Assistant-driven |
+| **Reason for deviation** | *(if User-influenced or User-critical)* Disagreement / Missing context / Ambiguity / Quality / Other |
 | **Outcome** | What was actually used and whether it worked |
 | **Notes** | Optional retrospective observations |
+
+## Rules
+
+- **Append-only**: no edits to existing entries; add new entries only
+- **No speculation about intent**: describe what happened, not why you think it happened
+- **Agency must be explicitly classified**: Decision Dependency cannot be left blank
 
 ---
 
@@ -29,10 +37,25 @@ Each entry covers one meaningful decision stage (not every conversation turn).
 ### S01 — Workflow Logging System Design — 2026-03-08
 
 **Phase**: Planning
-**Input type**: User requirement
+**Initiator**: User
+**User Engagement**: High
+**User Action Type**: Problem framing, Constraint setting
 **Prompt summary**: User wanted a system to track human–AI interactions across decision stages for documentation and future meta-analysis of collaboration patterns. Shared an Excel-based example from a prior AI exploration for reference.
-**AI output summary**: Proposed a Markdown-based log format with structured fields (stage, input type, prompt summary, AI output, agency, deviation reason, outcome, notes). Recommended a user-level CLAUDE.md rule + `/log` skill for immediate reusability, with an MCP plugin as the long-term path for team sharing.
-**Agency**: Accepted
+**AI output summary**: Proposed a Markdown-based log format with structured fields. Recommended a user-level CLAUDE.md rule + `/log` skill for immediate reusability, with an MCP plugin as the long-term path for team sharing.
+**Decision Dependency**: User-critical
 **Reason for deviation**: N/A
-**Outcome**: Format adopted. `WORKFLOW_LOG.md` created in `genai-workflow-meta/` folder under Colab Notebooks. User-level `CLAUDE.md` rule and `/log` skill created. To be tracked on GitHub as a private repo (`genai-workflow-meta`).
+**Outcome**: Format adopted. `WORKFLOW_LOG.md` created in `genai-workflow-meta/` folder under Colab Notebooks. User-level `CLAUDE.md` rule and PostToolUse hook created. Tracked on GitHub as a private repo (`genai-workflow-meta`).
 **Notes**: Format is provisional — may evolve as we gain experience. Plan to revisit and stabilize before packaging as a plugin. Log is cross-project; project-specific logs may be added later if needed.
+
+### S02 — Log Format Refinement — 2026-03-08
+
+**Phase**: Review
+**Initiator**: Joint
+**User Engagement**: High
+**User Action Type**: Evaluation criteria, Meta-analysis
+**Prompt summary**: User shared a prior Excel-based log schema for comparison. Claude identified gaps in the original format (missing Initiator, User Action Type, Decision Dependency, User Engagement fields; no append-only rule). User approved incorporating improvements.
+**AI output summary**: Updated WORKFLOW_LOG.md format and S01 entry to include new fields; updated CLAUDE.md rule to reference new field taxonomy.
+**Decision Dependency**: User-influenced
+**Reason for deviation**: Quality — prior format lacked the analytical precision needed for attribution analysis.
+**Outcome**: Format updated to v2. All dependencies (WORKFLOW_LOG.md, CLAUDE.md) updated consistently.
+**Notes**: The User Action Type and Decision Dependency fields are the most analytically valuable additions for future meta-analysis.
