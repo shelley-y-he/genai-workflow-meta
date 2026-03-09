@@ -132,3 +132,31 @@ Each entry covers one meaningful decision stage (not every conversation turn). F
 - **Reason for deviation**: N/A
 - **Outcome**: All entries reformatted. Format and skill updated consistently.
 - **Notes**: Bullet points render reliably on GitHub and improve source readability. No functional change to field taxonomy.
+
+### S08 — /log Skill Efficiency & Archive Config — 2026-03-08
+
+- **Phase**: Implementation
+- **Initiator**: User
+- **User Engagement**: High
+- **User Action Type**: Problem framing, Constraint setting
+- **Input Modality**: In-conversation text
+- **Prompt summary**: User raised concern about performance as the log grows to hundreds/thousands of entries, and asked about trade-offs of reading more vs fewer tail entries. Also specified monthly archive cadence and requested it be configurable.
+- **AI output summary**: Explained N=1 (Stage ID only) vs N=3 (context, recommended) vs full-file (wasteful) trade-offs. Proposed a CONFIG block at the top of the skill for `archive_cadence` and `tail_lines`. Implemented tail-read (first 35 lines + last 120 lines) and monthly archive workflow.
+- **Decision Dependency**: User-critical
+- **Reason for deviation**: N/A
+- **Outcome**: /log skill updated with CONFIG block, efficient read logic, and archive trigger. Settings changeable with a one-line edit.
+- **Notes**: Sweet spot of 120 tail lines covers ~3 recent entries. Archive creates `WORKFLOW_LOG_YYYY_MM.md` and keeps active file lean.
+
+### S09 — Artifacts Folder & GitHub Tracking — 2026-03-08
+
+- **Phase**: Implementation
+- **Initiator**: User
+- **User Engagement**: Medium
+- **User Action Type**: Structuring
+- **Input Modality**: In-conversation text
+- **Prompt summary**: User requested an `artifacts/` folder to preserve copies of all system files built today and asked for it tracked on GitHub privately.
+- **AI output summary**: Created `artifacts/` under Colab Notebooks with CLAUDE.md, log_skill.md, tool_audit.py, and settings.json. Initialised git repo and pushed to new private GitHub repo.
+- **Decision Dependency**: User-critical
+- **Reason for deviation**: N/A
+- **Outcome**: `artifacts/` folder created with all four system files, tracked at `github.com/shelley-y-he/artifacts` (private).
+- **Notes**: Claude flagged that `settings.json` and `tool_audit.py` were also essential to include beyond the .md files the user initially requested.
