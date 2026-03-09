@@ -74,3 +74,45 @@ Each entry covers one meaningful decision stage (not every conversation turn).
 **Reason for deviation**: N/A
 **Outcome**: Input Modality field added to log format (v3) and CLAUDE.md. All prior entries backfilled where modality was clear.
 **Notes**: This field is orthogonal to User Action Type — together they capture both the purpose and the channel of each input. Enables future analysis of whether input form affects output quality or iteration count.
+
+### S04 — PostToolUse Hook Setup & Validation — 2026-03-08
+
+**Phase**: Implementation
+**Initiator**: Joint
+**User Engagement**: High
+**User Action Type**: Planning & sequencing
+**Input Modality**: In-conversation text
+**Prompt summary**: User agreed to set up the PostToolUse hook for automated tool call logging. Claude built the hook script and registered it in settings.json; Python turned out not to be installed, requiring user to install it and restart Claude Code.
+**AI output summary**: Created `tool_audit.py` and registered it in `settings.json`. After Python install and restart, hook confirmed working — logging timestamp, session ID, tool name, and input summary to `tool_audit.log`.
+**Decision Dependency**: User-influenced
+**Reason for deviation**: Missing context — Python wasn't installed; required user action before hook could activate.
+**Outcome**: Hook active and confirmed working. `tool_audit.log` generating entries in `genai-workflow-meta/` (gitignored locally).
+**Notes**: Hook captures all tool calls silently from this point forward. No further setup needed.
+
+### S05 — /log UX Design & Project Organisation — 2026-03-08
+
+**Phase**: Planning
+**Initiator**: User
+**User Engagement**: High
+**User Action Type**: Problem framing, Constraint setting
+**Input Modality**: In-conversation text
+**Prompt summary**: User asked how the /log skill UX would work and how to handle multi-project context, context control, and access control. Clarified preference for sub-folder approach over working from root.
+**AI output summary**: Designed log routing rules (project sub-folder with log → project log; root → global; ambiguous → ask). Recommended separate Claude Code window per project. Proposed `/log new-phase` for explicit phase breaks.
+**Decision Dependency**: User-critical
+**Reason for deviation**: N/A
+**Outcome**: Sub-folder approach adopted. Routing rules defined and later encoded into the /log skill.
+**Notes**: Cross-project or root-level sessions default to global log. Access control handled naturally by per-repo GitHub permissions.
+
+### S06 — /log Skill Implementation — 2026-03-08
+
+**Phase**: Implementation
+**Initiator**: User
+**User Engagement**: Medium
+**User Action Type**: Approval only
+**Input Modality**: In-conversation text
+**Prompt summary**: User confirmed /log should be a global skill and approved rewriting the existing outdated `log.md` with updated field taxonomy, routing logic, and append-only behaviour.
+**AI output summary**: Rewrote `~/.claude/commands/log.md` with full field taxonomy (including Input Modality), routing logic, confirmation-before-write step, and append-only rule.
+**Decision Dependency**: User-influenced
+**Reason for deviation**: Quality — existing `log.md` referenced old field names and had no routing logic.
+**Outcome**: /log skill updated globally. Confirmed active and tested in this session.
+**Notes**: Skill is global (user-level). Project-level override remains possible if a specific project needs different logging behaviour.
