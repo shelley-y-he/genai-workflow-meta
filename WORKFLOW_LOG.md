@@ -160,3 +160,17 @@ Each entry covers one meaningful decision stage (not every conversation turn). F
 - **Reason for deviation**: N/A
 - **Outcome**: `artifacts/` folder created with all four system files, tracked at `github.com/shelley-y-he/artifacts` (private).
 - **Notes**: Claude flagged that `settings.json` and `tool_audit.py` were also essential to include beyond the .md files the user initially requested.
+
+### S10 — Repo Cleanup & Housekeeping — 2026-03-10
+
+- **Phase**: Implementation
+- **Initiator**: User
+- **User Engagement**: Medium
+- **User Action Type**: Structuring
+- **Input Modality**: In-conversation text
+- **Prompt summary**: User made three minor housekeeping decisions: changed both repos from private to public for easier sharing; reorganised `artifacts/` into per-project subfolders; added READMEs to both repos.
+- **AI output summary**: Changed repo visibility via `gh repo edit` (flagged path disclosure in settings.json first); moved files into `artifacts/genai-workflow-meta/` using `git mv`; wrote and committed READMEs for both repos.
+- **Decision Dependency**: User-critical
+- **Reason for deviation**: N/A
+- **Outcome**: Both repos public, artifacts structure scalable for future projects, READMEs in place.
+- **Notes**: `artifacts` README doubles as a setup guide for replicating the workflow logging system on a new machine.
